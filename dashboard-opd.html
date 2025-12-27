@@ -1,1 +1,46 @@
-
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard OPD - CERMAT-CLOUD</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <style>
+        * { box-sizing: border-box; font-family: sans-serif; }
+        body { margin: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 10px 20px; background: #2e7d32; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #1b5e20; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Dashboard Operator OPD</h1>
+        <button class="btn" onclick="logoutUser()">Keluar</button>
+    </div>
+    <p>Halaman ini untuk operator OPD. Fitur akan ditambahkan kemudian.</p>
+    <script>
+        // Cek apakah user sudah login dan memiliki role operator_opd
+        async function checkUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const { data: profile } = await supabase
+                .from('user_profiles')
+                .select('role')
+                .eq('id', user.id)
+                .single();
+            if (!profile || profile.role !== 'operator_opd') {
+                alert('Akses ditolak. Hanya untuk operator OPD.');
+                await supabase.auth.signOut();
+                window.location.href = 'login.html';
+            }
+        }
+        checkUser();
+    </script>
+</body>
+</html>
