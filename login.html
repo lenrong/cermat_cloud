@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CERMAT-CLOUD</title>
+    <style>
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        body {
+            margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+        }
+        .login-container {
+            background: white; padding: 2.5rem; border-radius: 16px; width: 100%; max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        h2 { color: #2e7d32; text-align: center; margin-bottom: 1.8rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 0.5rem; color: #555; font-weight: 600; }
+        input { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        input:focus { outline: none; border-color: #2e7d32; box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2); }
+        button {
+            width: 100%; padding: 14px; background-color: #2e7d32; color: white;
+            border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer;
+            margin-top: 10px; transition: background-color 0.3s;
+        }
+        button:hover { background-color: #1b5e20; }
+        .error-msg { color: #d32f2f; background: #ffebee; padding: 12px; border-radius: 8px; margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>🔐 Login CERMAT-CLOUD</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="admin@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit">Masuk</button>
+        </form>
+        <div id="errorMessage" class="error-msg"></div>
+        <p style="text-align: center; margin-top: 25px; color: #666; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 15px;">
+            <strong>Demo Role:</strong><br>
+            • Admin: <code>admin@example.com</code><br>
+            • OPD: <code>opd@example.com</code>
+        </p>
+    </div>
 
+    <!-- Load Supabase JS & our scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Attach login function to form submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            window.loginUser(event); // Calls function from auth.js
+        });
+    </script>
+</body>
+</html>
